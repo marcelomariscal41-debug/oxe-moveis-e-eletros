@@ -153,7 +153,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.02;letter-spac
 .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .card{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
 .card:hover{transform:translateY(-7px);box-shadow:0 24px 48px rgba(11,11,11,.13)}
-.card .media{position:relative;aspect-ratio:4/5;background:
+.card .media{position:relative;aspect-ratio:3/4;background:
   repeating-linear-gradient(135deg,rgba(11,11,11,.03) 0 2px,transparent 2px 20px),var(--gray-light);
   overflow:hidden;display:grid;place-items:center}
 .card .media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
@@ -187,6 +187,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.02;letter-spac
 .catalog-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto}
 .catalog-title .kicker{color:var(--gold)}
 .catalog-title h2{font-size:clamp(1.5rem,4vw,2.2rem);margin-top:4px}
+.catalog-sub{color:rgba(255,255,255,.72);font-size:.95rem;margin-top:8px;max-width:60ch;line-height:1.5}
 .catalog-close{width:44px;height:44px;flex:none;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;display:grid;place-items:center;transform:rotate(180deg)}
 .catalog-close svg{width:22px;height:22px}
 .catalog-close:hover{background:var(--orange);border-color:var(--orange)}
@@ -206,7 +207,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.02;letter-spac
 .pmodal-x{position:absolute;top:12px;right:12px;z-index:3;width:38px;height:38px;border-radius:50%;border:none;background:rgba(11,11,11,.55);color:#fff;font-size:22px;line-height:1;cursor:pointer}
 .pmodal-x:hover{background:var(--orange)}
 .pmodal-gallery{background:var(--gray-light);padding:16px}
-.pmodal-main{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;background:#fff;display:grid;place-items:center}
+.pmodal-main{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;background:#fff;display:grid;place-items:center}
 .pmodal-main img{width:100%;height:100%;object-fit:contain;cursor:zoom-in}
 .pmodal-zoom{position:absolute;bottom:10px;right:10px;width:38px;height:38px;border-radius:10px;border:none;background:rgba(11,11,11,.6);color:#fff;font-size:18px;cursor:pointer}
 .pmodal-thumbs{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
@@ -226,6 +227,11 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.02;letter-spac
 /* Lightbox */
 .lightbox{position:fixed;inset:0;z-index:240;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
 .lightbox img{max-width:100%;max-height:100%;object-fit:contain}
+.pmodal-share{margin-top:12px;background:none;border:1.5px solid var(--line);color:var(--gray-mid);border-radius:12px;padding:12px;font-weight:600;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s;font-family:var(--body)}
+.pmodal-share:hover{border-color:var(--orange);color:var(--orange)}
+.pmodal-share svg{width:18px;height:18px}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:var(--black);color:#fff;padding:13px 22px;border-radius:12px;z-index:300;font-size:.92rem;font-weight:600;opacity:0;transition:opacity .3s,transform .3s;box-shadow:0 12px 34px rgba(0,0,0,.35)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 body.noscroll{overflow:hidden}
 
 /* How it works */
@@ -279,6 +285,14 @@ body.noscroll{overflow:hidden}
 .acc .ans{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
 .acc .ans p{padding:0 4px 22px;color:var(--gray-mid);max-width:64ch}
 
+/* CTA catálogo (antes das dúvidas) */
+.cta-cat{background:var(--black);color:#fff;text-align:center;padding:clamp(56px,8vw,90px) 0;position:relative;overflow:hidden}
+.cta-cat::before{content:"";position:absolute;left:50%;top:-25%;width:70vw;max-width:640px;height:70vw;max-height:640px;transform:translateX(-50%);background:radial-gradient(circle,rgba(246,106,10,.24),transparent 66%);pointer-events:none}
+.cta-cat .wrap{position:relative;z-index:2;max-width:720px}
+.cta-cat h2{font-size:clamp(1.8rem,5vw,3rem);margin:10px 0 14px}
+.cta-cat p{color:rgba(255,255,255,.76);font-size:1.08rem;line-height:1.6;margin-bottom:28px;max-width:54ch;margin-inline:auto}
+.cta-cat .btn{background:linear-gradient(135deg,var(--orange),var(--orange-dark));color:#fff;box-shadow:0 12px 30px rgba(246,106,10,.4);justify-content:center}
+.cta-cat .btn:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(246,106,10,.52)}
 /* CTA final */
 .cta{background:linear-gradient(120deg,var(--orange),var(--orange-dark));color:#fff;text-align:center;position:relative;overflow:hidden}
 .cta::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.18),transparent 50%);pointer-events:none}
@@ -378,8 +392,9 @@ body.noscroll{overflow:hidden}
   .hero.intro{min-height:100svh;padding:0;align-items:stretch}
   .hero.intro::before,.hero.intro::after{display:none}
   .hero.intro .hero-video{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;background:#0B0B0B}
-  .hero.intro .hero-freeze{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;transition:opacity .28s ease}
+  .hero.intro .hero-freeze{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;background:#0B0B0B;transition:opacity .18s ease}
   .hero.intro.frozen .hero-freeze{opacity:1}
+  .hero.intro.frozen .hero-video{opacity:0;transition:opacity .2s ease}
   .hero.intro .hero-scrim{display:block;position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(11,11,11,.9) 0%,rgba(11,11,11,.6) 20%,rgba(11,11,11,.12) 40%,rgba(11,11,11,0) 55%,rgba(11,11,11,0) 70%,rgba(11,11,11,.5) 86%,rgba(11,11,11,.94) 100%)}
   .hero.intro .wrap{position:relative;z-index:3;display:flex;flex-direction:column;padding:84px 20px 26px;min-height:100svh}
   .hero.intro .hero-figure{display:none}
@@ -495,7 +510,7 @@ body.noscroll{overflow:hidden}
       <p>Compre sem burocracia e sem juros. Você paga à vista no Pix, garante o melhor preço da região e recebe rápido na sua casa.</p>
       <div class="hero-cta">
         <a class="btn btn-wa btn-lg" href="https://wa.me/5581991479656?text=Ol%C3%A1!%20Quero%20ver%20as%20ofertas%20de%20m%C3%B3veis%20e%20eletros%20%C3%A0%20vista.%20%F0%9F%98%8A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.1A11.8 11.8 0 0 1 .16 11.9C.16 5.35 5.5.02 12.06.02a11.8 11.8 0 0 1 8.4 3.49 11.75 11.75 0 0 1 3.48 8.4c0 6.55-5.34 11.88-11.9 11.88a11.9 11.9 0 0 1-5.68-1.45L.06 24zM6.6 20.13c1.67.99 3.27 1.58 5.38 1.58 5.45 0 9.9-4.43 9.9-9.88a9.82 9.82 0 0 0-2.9-6.99 9.8 9.8 0 0 0-6.98-2.9c-5.46 0-9.9 4.43-9.9 9.88 0 2.22.65 3.88 1.74 5.62l-.99 3.62 3.75-.98zm11.36-5.56c-.07-.12-.27-.2-.57-.35-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.67-.5l-.57-.01c-.2 0-.52.07-.8.37s-1.05 1.02-1.05 2.5 1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.3 1.27.5 1.7.63.72.23 1.37.2 1.88.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42z"/></svg><span class="cta-alt-d">Ver ofertas no WhatsApp</span><span class="cta-alt-m">Enviar mensagem</span></a>
-        <a class="btn btn-ghost btn-lg" href="#produtos">Ver produtos</a>
+        <a class="btn btn-ghost btn-lg" href="#produtos" data-open-catalog>Ver produtos</a>
       </div>
     </div>
     <div class="hero-figure reveal rd-2">
@@ -524,22 +539,22 @@ body.noscroll{overflow:hidden}
       <p class="sec-sub">Móveis e eletrodomésticos com o melhor preço à vista. Escolha a categoria e fale com a gente no WhatsApp.</p>
     </div>
     <div class="grid">
-      <a class="cat reveal rd-1" href="https://wa.me/5581991479656?text=Ol%C3%A1!%20Quero%20ver%20as%20op%C3%A7%C3%B5es%20de%20Sof%C3%A1s%20%C3%A0%20vista.%20%F0%9F%98%8A" target="_blank" rel="noopener">
+      <a class="cat reveal rd-1" href="#produtos" data-cat="Sofás">
         <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><path d="M2 13a2 2 0 0 1 2-2 2 2 0 0 1 2 2v3h12v-3a2 2 0 0 1 4 0v5a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/><path d="M6 19v2M18 19v2"/></svg></div>
         <b>Sofás</b>
-        <span>Ver no WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a><a class="cat reveal rd-2" href="https://wa.me/5581991479656?text=Ol%C3%A1!%20Quero%20ver%20as%20op%C3%A7%C3%B5es%20de%20Camas%20%26%20Colch%C3%B5es%20%C3%A0%20vista.%20%F0%9F%98%8A" target="_blank" rel="noopener">
+        <span>Ver produtos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a><a class="cat reveal rd-2" href="#produtos" data-cat="Camas & Colchões">
         <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8v11M3 13h18M21 19v-6a3 3 0 0 0-3-3H9v3"/><path d="M6.5 10.5a1.5 1.5 0 1 0 0-.001M21 19v2M3 21v-2"/></svg></div>
         <b>Camas & Colchões</b>
-        <span>Ver no WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a><a class="cat reveal rd-3" href="https://wa.me/5581991479656?text=Ol%C3%A1!%20Quero%20ver%20as%20op%C3%A7%C3%B5es%20de%20Guarda-roupas%20%C3%A0%20vista.%20%F0%9F%98%8A" target="_blank" rel="noopener">
+        <span>Ver produtos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a><a class="cat reveal rd-3" href="#produtos" data-cat="Guarda-roupas">
         <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="1.5"/><path d="M12 2v20M9 10v2M15 10v2"/></svg></div>
         <b>Guarda-roupas</b>
-        <span>Ver no WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a><a class="cat reveal rd-4" href="https://wa.me/5581991479656?text=Ol%C3%A1!%20Quero%20ver%20as%20op%C3%A7%C3%B5es%20de%20Fog%C3%B5es%20%C3%A0%20vista.%20%F0%9F%98%8A" target="_blank" rel="noopener">
+        <span>Ver produtos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a><a class="cat reveal rd-4" href="#produtos" data-cat="Fogões">
         <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M4 12h16M8 4c0 1-1 1-1 2M12 3c0 1-1 1-1 2M16 4c0 1-1 1-1 2M8 17h.01"/></svg></div>
         <b>Fogões</b>
-        <span>Ver no WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <span>Ver produtos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
     </div>
   </div>
@@ -550,17 +565,17 @@ body.noscroll{overflow:hidden}
     <div class="sec-head reveal">
       <span class="kicker">Catálogo</span>
       <h2 class="sec-title">Conheça o catálogo da OXÊ</h2>
-      <p class="sec-sub">Escolha o produto que você quer, veja as fotos e todos os detalhes, e finalize a sua compra — ou tire qualquer dúvida — direto no WhatsApp.</p>
+      <p class="sec-sub">Na OXÊ você compra com confiança: produtos de qualidade, preço justo e gente de verdade para te atender. Dê uma olhada em alguns destaques — e conte com a gente para escolher o ideal para o seu lar. 🧡</p>
     </div>
     <div class="pgrid" id="homeProducts"><div class="prods-state" id="prodsState">Carregando produtos…</div></div>
-    <div class="prods-more" id="prodsMore" hidden><button class="btn btn-more btn-lg" id="verMais">Ver mais produtos</button></div>
+    <div class="prods-more" id="prodsMore"><button class="btn btn-more btn-lg" id="verMais">Ver mais produtos</button></div>
   </div>
 </section>
 
 <div class="catalog" id="catalog" hidden aria-hidden="true">
   <div class="catalog-head">
     <div class="catalog-head-row">
-      <div class="catalog-title"><span class="kicker">Catálogo completo</span><h2>Todos os produtos</h2></div>
+      <div class="catalog-title"><span class="kicker">Catálogo completo</span><h2>Todos os produtos da OXÊ</h2><p class="catalog-sub">Use a busca ou os filtros por categoria. Toque em qualquer produto para ver fotos, detalhes e comprar pelo WhatsApp.</p></div>
       <button class="catalog-close" id="catalogClose" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
     <div class="catalog-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.6z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><input type="search" id="catalogSearch" placeholder="Buscar produto (ex.: sofá, geladeira...)" autocomplete="off"></div>
@@ -584,11 +599,13 @@ body.noscroll{overflow:hidden}
       <div class="pmodal-stock" id="pmStock"></div>
       <p class="pmodal-desc" id="pmDesc"></p>
       <a class="btn btn-wa btn-lg" id="pmBuy" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.1A11.8 11.8 0 0 1 .16 11.9C.16 5.35 5.5.02 12.06.02a11.8 11.8 0 0 1 8.4 3.49 11.75 11.75 0 0 1 3.48 8.4c0 6.55-5.34 11.88-11.9 11.88a11.9 11.9 0 0 1-5.68-1.45L.06 24zM6.6 20.13c1.67.99 3.27 1.58 5.38 1.58 5.45 0 9.9-4.43 9.9-9.88a9.82 9.82 0 0 0-2.9-6.99 9.8 9.8 0 0 0-6.98-2.9c-5.46 0-9.9 4.43-9.9 9.88 0 2.22.65 3.88 1.74 5.62l-.99 3.62 3.75-.98zm11.36-5.56c-.07-.12-.27-.2-.57-.35-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.67-.5l-.57-.01c-.2 0-.52.07-.8.37s-1.05 1.02-1.05 2.5 1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.3 1.27.5 1.7.63.72.23 1.37.2 1.88.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42z"/></svg>Comprar pelo WhatsApp</a>
+      <button class="pmodal-share" id="pmShare" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span>Compartilhar este produto</span></button>
     </div>
   </div>
 </div>
 
 <div class="lightbox" id="lightbox" hidden><img id="lightboxImg" src="" alt=""></div>
+<div class="toast" id="toast" hidden></div>
 
 <section class="sec how" id="como">
   <div class="wrap">
@@ -605,7 +622,7 @@ body.noscroll{overflow:hidden}
   </div>
 </section>
 
-<section class="sec cover">
+<section class="sec cover" id="entrega">
   <div class="wrap">
     <div>
       <span class="kicker">Cobertura de entrega</span>
@@ -629,7 +646,7 @@ body.noscroll{overflow:hidden}
   </div>
 </section>
 
-<section class="sec tst">
+<section class="sec tst" id="prova">
   <div class="wrap">
     <div class="sec-head center reveal">
       <span class="kicker center">Prova social</span>
@@ -690,7 +707,16 @@ body.noscroll{overflow:hidden}
   </div>
 </section>
 
-<section class="sec faq">
+<section class="cta-cat">
+  <div class="wrap">
+    <span class="kicker center">O seu novo lar começa aqui</span>
+    <h2>O seu móvel ideal já está esperando por você</h2>
+    <p>Conforto, qualidade e o melhor preço à vista. Escolha o que combina com a sua casa e receba rápido — com um atendimento que cuida de cada detalhe com você.</p>
+    <button class="btn btn-lg" data-open-catalog><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.6z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Ver catálogo completo</button>
+  </div>
+</section>
+
+<section class="sec faq" id="duvidas">
   <div class="wrap">
     <div class="sec-head center reveal">
       <span class="kicker center">Dúvidas frequentes</span>
@@ -723,10 +749,12 @@ body.noscroll{overflow:hidden}
       <div>
         <h4>Navegação</h4>
         <ul>
-          <li><a href="#categorias">Móveis</a></li>
-          <li><a href="#categorias">Eletros</a></li>
-          <li><a href="#produtos">Ofertas</a></li>
+          <li><a href="#categorias">Categorias</a></li>
+          <li><a href="#produtos" data-open-catalog>Catálogo</a></li>
           <li><a href="#como">Como funciona</a></li>
+          <li><a href="#entrega">Entrega</a></li>
+          <li><a href="#prova">Prova social</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
         </ul>
       </div>
       <div class="contact">
@@ -817,16 +845,17 @@ body.noscroll{overflow:hidden}
     chips.innerHTML=cats.map(function(c){return '<button class="chip'+(c===curFilter?' active':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('');
     chips.querySelectorAll('.chip').forEach(function(b){b.addEventListener('click',function(){curFilter=b.dataset.cat;chips.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderCatalog(curFilter);});});
   }
-  function openCatalog(){
+  function openCatalog(cat){
     var c=document.getElementById('catalog');if(!c)return;
-    curFilter='Todos';buildChips();document.getElementById('catalogSearch').value='';renderCatalog('Todos');
+    curFilter=(typeof cat==='string'&&cat)?cat:'Todos';buildChips();document.getElementById('catalogSearch').value='';renderCatalog(curFilter);
     c.hidden=false;c.setAttribute('aria-hidden','false');requestAnimationFrame(function(){c.classList.add('open');});
     document.body.classList.add('noscroll');
   }
   function closeCatalog(){var c=document.getElementById('catalog');c.classList.remove('open');document.body.classList.remove('noscroll');setTimeout(function(){c.hidden=true;c.setAttribute('aria-hidden','true');},450);}
 
-  var curImgs=[];
+  var curImgs=[],CURRENT=null;
   function openProduct(p){
+    CURRENT=p;
     curImgs=(p.imagens&&p.imagens.length)?p.imagens:[''];
     document.getElementById('pmCat').textContent=p.categoria||'';
     document.getElementById('pmName').textContent=p.nome||'';
@@ -848,11 +877,22 @@ body.noscroll{overflow:hidden}
   function closeModal(){var pm=document.getElementById('pmodal');pm.hidden=true;pm.setAttribute('aria-hidden','true');if(!document.getElementById('catalog')||document.getElementById('catalog').hidden)document.body.classList.remove('noscroll');}
   function openLightbox(){var lb=document.getElementById('lightbox');document.getElementById('lightboxImg').src=document.getElementById('pmMainImg').src;lb.hidden=false;}
   function closeLightbox(){document.getElementById('lightbox').hidden=true;}
+  function toast(msg){var t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.hidden=false;requestAnimationFrame(function(){t.classList.add('show');});clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');setTimeout(function(){t.hidden=true;},300);},2200);}
+  function shareProduct(){
+    if(!CURRENT)return;
+    var url=location.origin+location.pathname+'#produto='+CURRENT.id;
+    if(navigator.share){navigator.share({title:'OXÊ Móveis e Eletros',text:'Olha esse produto na OXÊ: '+CURRENT.nome+' 🧡',url:url}).catch(function(){});}
+    else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){toast('Link copiado! 📋');},function(){toast('Copie o link: '+url);});}
+    else{toast('Copie o link: '+url);}
+  }
 
   function initCatalog(){
     var g=document.getElementById('homeProducts');if(!g)return;
     // eventos
-    var vm=document.getElementById('verMais');if(vm)vm.addEventListener('click',openCatalog);
+    var vm=document.getElementById('verMais');if(vm)vm.addEventListener('click',function(){openCatalog();});
+    document.querySelectorAll('[data-open-catalog]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();openCatalog();});});
+    document.querySelectorAll('.cat[data-cat]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();openCatalog(a.getAttribute('data-cat'));});});
+    var sh=document.getElementById('pmShare');if(sh)sh.addEventListener('click',shareProduct);
     var cc=document.getElementById('catalogClose');if(cc)cc.addEventListener('click',closeCatalog);
     var cs=document.getElementById('catalogSearch');if(cs)cs.addEventListener('input',function(){renderCatalog(curFilter);});
     document.querySelectorAll('#pmodal [data-close]').forEach(function(b){b.addEventListener('click',closeModal);});
@@ -866,6 +906,8 @@ body.noscroll{overflow:hidden}
     sb.from('produtos').select('*').eq('ativo',true).order('destaque',{ascending:false}).order('criado_em',{ascending:false}).then(function(r){
       if(r.error){g.innerHTML='<div class="prods-state">Erro ao carregar o catálogo.</div>';console.warn(r.error);return;}
       ALLPRODS=r.data||[];renderHome();
+      var m=(location.hash||'').match(/produto=([^&]+)/);
+      if(m){var pp=ALLPRODS.filter(function(x){return String(x.id)===decodeURIComponent(m[1]);})[0];if(pp)openProduct(pp);}
     });
   }
 
