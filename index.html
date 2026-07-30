@@ -11,6 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0B0B'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='16' font-weight='bold' fill='%23F66A0A' text-anchor='middle'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="preload" as="image" href="hero-last.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com">
@@ -393,9 +394,7 @@ body.noscroll{overflow:hidden}
   .hero.intro{min-height:100svh;padding:0;align-items:stretch}
   .hero.intro::before,.hero.intro::after{display:none}
   .hero.intro .hero-video{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;background:#0B0B0B}
-  .hero.intro .hero-freeze{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;background:#0B0B0B;transition:opacity .18s ease}
-  .hero.intro.frozen .hero-freeze{opacity:1}
-  .hero.intro.frozen .hero-video{opacity:0;transition:opacity .2s ease}
+  .hero.intro .hero-freeze{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:1;background:#0B0B0B}
   .hero.intro .hero-scrim{display:block;position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(11,11,11,.9) 0%,rgba(11,11,11,.6) 20%,rgba(11,11,11,.12) 40%,rgba(11,11,11,0) 55%,rgba(11,11,11,0) 70%,rgba(11,11,11,.5) 86%,rgba(11,11,11,.94) 100%)}
   .hero.intro .wrap{position:relative;z-index:3;display:flex;flex-direction:column;padding:84px 20px 26px;min-height:100svh}
   .hero.intro .hero-figure{display:none}
@@ -986,8 +985,9 @@ body.noscroll{overflow:hidden}
         if(done)return;done=true;
         try{vid.pause();}catch(e){}
         try{vid.style.display='none';}catch(e){}                    // iOS: opacity no basta; hay que sacar el video del render
-        hero.classList.add('frozen');                              // imagen fija (misma pose) queda visible
-        setTimeout(function(){hero.classList.add('reveal');},120); // aparecen texto y botones
+        hero.classList.add('frozen');
+        setTimeout(function(){hero.classList.add('reveal');},120); // aparecen texto y botones (la imagen ya está detrás)
+        setTimeout(function(){try{if(vid.parentNode)vid.parentNode.removeChild(vid);}catch(e){}},450); // libera a camada de vídeo do iOS
       }
       var VIDLEN=5.2; // segundos aprox. do vídeo do hero — ajustar se trocar o vídeo
       vid.addEventListener('error',function(){hero.classList.remove('intro');hero.classList.add('reveal');});
