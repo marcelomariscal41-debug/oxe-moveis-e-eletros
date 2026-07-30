@@ -485,10 +485,12 @@ body.noscroll{overflow:hidden}
     </a>
     <nav class="nav">
       <div class="nav-links" id="navLinks">
-        <a href="#categorias">Móveis</a>
-        <a href="#categorias">Eletros</a>
+        <a href="#categorias">Categorias</a>
+        <a href="#produtos" data-open-catalog>Catálogo</a>
         <a href="#como">Como funciona</a>
-        <a href="#contato">Contato</a>
+        <a href="#entrega">Entrega</a>
+        <a href="#prova">Prova social</a>
+        <a href="#duvidas">Dúvidas</a>
       </div>
       <a class="btn btn-wa" href="https://wa.me/5581991479656?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20OX%C3%8A%20e%20quero%20ver%20as%20ofertas%20%C3%A0%20vista.%20%F0%9F%98%8A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.1A11.8 11.8 0 0 1 .16 11.9C.16 5.35 5.5.02 12.06.02a11.8 11.8 0 0 1 8.4 3.49 11.75 11.75 0 0 1 3.48 8.4c0 6.55-5.34 11.88-11.9 11.88a11.9 11.9 0 0 1-5.68-1.45L.06 24zM6.6 20.13c1.67.99 3.27 1.58 5.38 1.58 5.45 0 9.9-4.43 9.9-9.88a9.82 9.82 0 0 0-2.9-6.99 9.8 9.8 0 0 0-6.98-2.9c-5.46 0-9.9 4.43-9.9 9.88 0 2.22.65 3.88 1.74 5.62l-.99 3.62 3.75-.98zm11.36-5.56c-.07-.12-.27-.2-.57-.35-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.67-.5l-.57-.01c-.2 0-.52.07-.8.37s-1.05 1.02-1.05 2.5 1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.3 1.27.5 1.7.63.72.23 1.37.2 1.88.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42z"/></svg><span class="wa-txt">Comprar no WhatsApp</span></a>
       <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -500,7 +502,7 @@ body.noscroll{overflow:hidden}
   <video class="hero-video" playsinline muted autoplay preload="auto" poster="hero-last.jpg">
     <source src="hero.mp4" type="video/mp4">
   </video>
-  <img class="hero-freeze" src="hero-last.jpg" alt="" aria-hidden="true">
+  <img class="hero-freeze" src="hero-last.jpg" alt="" aria-hidden="true" fetchpriority="high" loading="eager">
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-copy">
@@ -890,8 +892,8 @@ body.noscroll{overflow:hidden}
     var g=document.getElementById('homeProducts');if(!g)return;
     // eventos
     var vm=document.getElementById('verMais');if(vm)vm.addEventListener('click',function(){openCatalog();});
-    document.querySelectorAll('[data-open-catalog]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();openCatalog();});});
-    document.querySelectorAll('.cat[data-cat]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();openCatalog(a.getAttribute('data-cat'));});});
+    document.querySelectorAll('[data-open-catalog]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openCatalog();});});
+    document.querySelectorAll('.cat[data-cat]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openCatalog(a.getAttribute('data-cat'));});});
     var sh=document.getElementById('pmShare');if(sh)sh.addEventListener('click',shareProduct);
     var cc=document.getElementById('catalogClose');if(cc)cc.addEventListener('click',closeCatalog);
     var cs=document.getElementById('catalogSearch');if(cs)cs.addEventListener('input',function(){renderCatalog(curFilter);});
@@ -980,10 +982,12 @@ body.noscroll{overflow:hidden}
       // el video corre completo; recién al terminar mostramos imagen + texto
       vid.addEventListener('ended',finish);
       vid.addEventListener('error',function(){hero.classList.remove('intro');hero.classList.add('reveal');});
-      // respaldo por si 'ended' no dispara: agenda según la duración real
-      function scheduleBackup(){if(vid.duration&&isFinite(vid.duration))setTimeout(finish,(vid.duration+0.3)*1000);}
+      // dispara al acercarse al final aunque 'ended' falhe (acontece no 1º load / iOS)
+      vid.addEventListener('timeupdate',function(){if(vid.duration&&isFinite(vid.duration)&&vid.currentTime>=vid.duration-0.12)finish();});
+      // respaldos duros: nunca fica em branco
+      function scheduleBackup(){if(vid.duration&&isFinite(vid.duration))setTimeout(finish,(vid.duration+0.25)*1000);}
       if(vid.readyState>=1)scheduleBackup();else vid.addEventListener('loadedmetadata',scheduleBackup);
-      setTimeout(finish,9000); // respaldo duro
+      setTimeout(finish,6500); // respaldo duro definitivo
       try{vid.currentTime=0;}catch(e){}
       var p=vid.play&&vid.play();
       if(p&&p.catch)p.catch(function(){finish();}); // autoplay bloqueado -> imagen fija + texto
