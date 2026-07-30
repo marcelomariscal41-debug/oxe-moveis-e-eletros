@@ -168,36 +168,36 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.02;letter-spac
 .card .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
 .card .body .pcat{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray-mid);font-weight:600}
 .card .body h3{font-size:1.06rem;line-height:1.15}
-.price{display:flex;align-items:baseline;gap:8px;margin-top:auto}
-.price .pv{font-family:var(--display);font-size:1.7rem;color:var(--black);line-height:1;white-space:nowrap}
+.price{display:flex;flex-direction:column;align-items:flex-start;gap:1px;margin-top:auto}
+.price .pv{font-family:var(--display);font-size:1.7rem;color:var(--black);line-height:1.05;white-space:nowrap}
 .price .pl{font-size:.76rem;color:var(--gray-mid)}
 .card .btn-wa{width:100%;justify-content:center;padding:13px;font-size:.94rem;margin-top:6px}
 @media(max-width:980px){.pgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:440px){.price .pv{font-size:1.5rem}}
 .card{cursor:pointer}
-.price .pv-old{font-size:.95rem;color:var(--gray-mid);text-decoration:line-through;font-weight:500;font-family:var(--body)}
+.price .pv-old{font-size:.95rem;color:#D92D20;text-decoration:line-through;font-weight:600;font-family:var(--body)}
 .prods-state{grid-column:1/-1;text-align:center;color:var(--gray-mid);padding:44px 10px;font-size:1rem}
 .prods-more{text-align:center;margin-top:34px}
 .btn-more{background:var(--black);color:#fff}
 .btn-more:hover{background:var(--orange-dark);transform:translateY(-2px)}
 /* Catálogo completo */
-.catalog{position:fixed;inset:0;z-index:200;background:var(--white);display:flex;flex-direction:column;transform:translateY(100%);transition:transform .45s var(--ease)}
+.catalog{position:fixed;inset:0;z-index:200;background:var(--gray-light);overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateY(100%);transition:transform .45s var(--ease)}
 .catalog.open{transform:none}
-.catalog-head{background:var(--black);color:#fff;padding:20px 22px 18px}
+.catalog-head{background:var(--black);color:#fff;padding:20px 22px 22px}
 .catalog-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto}
 .catalog-title .kicker{color:var(--gold)}
 .catalog-title h2{font-size:clamp(1.5rem,4vw,2.2rem);margin-top:4px}
 .catalog-sub{color:rgba(255,255,255,.72);font-size:.95rem;margin-top:8px;max-width:60ch;line-height:1.5}
-.catalog-close{width:44px;height:44px;flex:none;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;display:grid;place-items:center;transform:rotate(180deg)}
+.catalog-close{position:fixed;top:14px;right:14px;z-index:20;width:46px;height:46px;flex:none;border-radius:50%;border:none;background:var(--orange);color:#fff;cursor:pointer;display:grid;place-items:center;transform:rotate(180deg);box-shadow:0 6px 20px rgba(0,0,0,.28)}
 .catalog-close svg{width:22px;height:22px}
-.catalog-close:hover{background:var(--orange);border-color:var(--orange)}
+.catalog-close:hover{background:var(--orange-dark)}
 .catalog-search{max-width:1200px;margin:16px auto 0;display:flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:0 14px}
 .catalog-search svg{width:20px;height:20px;color:var(--gray-mid);flex:none}
 .catalog-search input{flex:1;border:none;background:none;padding:14px 0;font-size:1rem;color:#111;outline:none}
 .cat-chips{max-width:1200px;margin:14px auto 0;display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
 .chip{flex:none;border:1px solid rgba(255,255,255,.22);background:transparent;color:rgba(255,255,255,.85);padding:8px 15px;border-radius:999px;font-size:.86rem;cursor:pointer;white-space:nowrap;transition:.2s}
 .chip.active,.chip:hover{background:var(--orange);border-color:var(--orange);color:#fff}
-.catalog-body{flex:1;overflow-y:auto;background:var(--gray-light);padding:26px 22px 60px}
+.catalog-body{background:var(--gray-light);padding:26px 22px 70px}
 .catalog-grid{max-width:1200px;margin:0 auto}
 @media(max-width:980px){.catalog-grid{grid-template-columns:1fr 1fr}}
 /* Modal de produto */
@@ -216,9 +216,10 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.02;letter-spac
 .pmodal-info{padding:30px 28px;display:flex;flex-direction:column}
 .pmodal-info .pcat{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray-mid);font-weight:700}
 .pmodal-info h3{font-size:1.5rem;line-height:1.2;margin:6px 0 14px}
-.pmodal-price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.pmodal-price{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin-bottom:8px}
+.pmodal-price .pv-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .pmodal-price .pv{font-family:var(--display);font-size:2.2rem;color:var(--black);line-height:1}
-.pmodal-price .pv-old{font-size:1.1rem;color:var(--gray-mid);text-decoration:line-through}
+.pmodal-price .pv-old{font-size:1.1rem;color:#D92D20;text-decoration:line-through;font-weight:600}
 .pmodal-price .promo-badge{background:var(--orange);color:#fff;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.05em;align-self:center}
 .pmodal-stock{font-size:.86rem;color:#0E7C7B;font-weight:600;margin-bottom:14px}
 .pmodal-desc{color:var(--gray-mid);font-size:.98rem;line-height:1.6;margin-bottom:22px;white-space:pre-line}
@@ -506,7 +507,7 @@ body.noscroll{overflow:hidden}
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-copy">
-      <span class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.6z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><b>À vista, mais barato</b><span class="badge-extra"> · Carpina e região</span></span>
+      <span class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.6z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><b>À vista, melhor valor</b><span class="badge-extra"> · Carpina e região</span></span>
       <h1>Móveis e eletros à vista, com <span class="hl">o melhor preço</span>.</h1>
       <p class="hero-tagline">O conforto que combina com o seu lar.</p>
       <p>Compre sem burocracia e sem juros. Você paga à vista no Pix, garante o melhor preço da região e recebe rápido na sua casa.</p>
@@ -529,7 +530,7 @@ body.noscroll{overflow:hidden}
 
 <section class="trust on-dark" aria-label="Nossos diferenciais">
   <div class="marquee">
-    <div class="trust-track"><div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.6z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><div><b>À vista, mais barato</b><span>O melhor preço da região</span></div></div><div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg><div><b>Entrega rápida</b><span>Carpina e região</span></div></div><div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg><div><b>Atendimento humano</b><span>Direto no WhatsApp</span></div></div><div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg><div><b>Qualidade garantida</b><span>Produtos com garantia</span></div></div><div class="item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.6z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><div><b>À vista, mais barato</b><span>O melhor preço da região</span></div></div><div class="item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg><div><b>Entrega rápida</b><span>Carpina e região</span></div></div><div class="item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg><div><b>Atendimento humano</b><span>Direto no WhatsApp</span></div></div><div class="item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg><div><b>Qualidade garantida</b><span>Produtos com garantia</span></div></div></div>
+    <div class="trust-track"><div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.6z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><div><b>À vista, melhor valor</b><span>O melhor preço da região</span></div></div><div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg><div><b>Entrega rápida</b><span>Carpina e região</span></div></div><div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg><div><b>Atendimento humano</b><span>Direto no WhatsApp</span></div></div><div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg><div><b>Qualidade garantida</b><span>Produtos com garantia</span></div></div><div class="item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V4a1 1 0 0 1 1-1h8a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.6z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><div><b>À vista, melhor valor</b><span>O melhor preço da região</span></div></div><div class="item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg><div><b>Entrega rápida</b><span>Carpina e região</span></div></div><div class="item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg><div><b>Atendimento humano</b><span>Direto no WhatsApp</span></div></div><div class="item" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg><div><b>Qualidade garantida</b><span>Produtos com garantia</span></div></div></div>
   </div>
 </section>
 
@@ -733,7 +734,7 @@ body.noscroll{overflow:hidden}
       <h2 class="sec-title">Perguntas & respostas</h2>
     </div>
     <div class="reveal">
-      <div class="acc"><button aria-expanded="false"><span>Quais as formas de pagamento?</span><span class="ico"></span></button><div class="ans"><p>Trabalhamos com pagamento à vista no Pix (com o melhor preço) e também cartão de crédito parcelado. Tudo combinado direto com você pelo WhatsApp, sem burocracia e sem juros escondidos.</p></div></div><div class="acc"><button aria-expanded="false"><span>Qual o prazo de entrega?</span><span class="ico"></span></button><div class="ans"><p>Em Carpina e região a entrega costuma sair em até 48h. Assim que você fechar o pedido pelo WhatsApp, agendamos o melhor dia e horário para você.</p></div></div><div class="acc"><button aria-expanded="false"><span>Os produtos têm garantia?</span><span class="ico"></span></button><div class="ans"><p>Sim. Todos os móveis e eletros contam com garantia. Qualquer detalhe, é só chamar no WhatsApp que resolvemos rápido.</p></div></div><div class="acc"><button aria-expanded="false"><span>Como faço para comprar?</span><span class="ico"></span></button><div class="ans"><p>É simples: escolha o produto, clique em "Pedir preço no WhatsApp" e fale com a gente. Passamos o valor à vista, tiramos suas dúvidas e agendamos a entrega.</p></div></div><div class="acc"><button aria-expanded="false"><span>Vocês entregam em quais cidades?</span><span class="ico"></span></button><div class="ans"><p>Atendemos Carpina e toda a região da Mata Norte de Pernambuco: Nazaré da Mata, Paudalho, Lagoa do Carro, Tracunhaém, Timbaúba e cidades vizinhas. Confirme a sua no WhatsApp.</p></div></div>
+      <div class="acc"><button aria-expanded="false"><span>Quais as formas de pagamento?</span><span class="ico"></span></button><div class="ans"><p>Aceitamos Pix e cartão de débito — do jeito mais rápido, seguro e sem complicação. Na hora de fechar o pedido, a gente combina tudo com você pelo WhatsApp, com toda a atenção. 😊</p></div></div><div class="acc"><button aria-expanded="false"><span>Qual o prazo de entrega?</span><span class="ico"></span></button><div class="ans"><p>A entrega leva de 10 a 72 horas, dependendo da sua cidade. Assim que você fecha o pedido, combinamos o melhor dia e horário para você. Quer saber o prazo certinho para o seu endereço? É só chamar no WhatsApp que a gente te diz na hora.</p></div></div><div class="acc"><button aria-expanded="false"><span>Os produtos têm garantia?</span><span class="ico"></span></button><div class="ans"><p>Sim. Todos os móveis e eletros contam com garantia. Qualquer detalhe, é só chamar no WhatsApp que resolvemos rápido.</p></div></div><div class="acc"><button aria-expanded="false"><span>Como faço para comprar?</span><span class="ico"></span></button><div class="ans"><p>É bem simples: navegue pelo catálogo, escolha o produto e veja as fotos e todos os detalhes. Quando decidir, toque em "Comprar pelo WhatsApp" e finalize com a gente — tiramos suas dúvidas e combinamos a entrega. Fácil, rápido e com atendimento de verdade.</p></div></div><div class="acc"><button aria-expanded="false"><span>Vocês entregam em quais cidades?</span><span class="ico"></span></button><div class="ans"><p>Atendemos Carpina e toda a região da Mata Norte de Pernambuco: Nazaré da Mata, Paudalho, Lagoa do Carro, Tracunhaém, Timbaúba e cidades vizinhas. Confirme a sua no WhatsApp.</p></div></div>
     </div>
   </div>
 </section>
@@ -853,12 +854,12 @@ body.noscroll{overflow:hidden}
     var chips=document.getElementById('catChips');
     var cats=['Todos'];ALLPRODS.forEach(function(p){if(p.categoria&&cats.indexOf(p.categoria)<0)cats.push(p.categoria);});
     chips.innerHTML=cats.map(function(c){return '<button class="chip'+(c===curFilter?' active':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('');
-    chips.querySelectorAll('.chip').forEach(function(b){b.addEventListener('click',function(){curFilter=b.dataset.cat;chips.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderCatalog(curFilter);});});
+    chips.querySelectorAll('.chip').forEach(function(b){b.addEventListener('click',function(){curFilter=b.dataset.cat;chips.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderCatalog(curFilter);var cat=document.getElementById('catalog');if(cat)cat.scrollTo({top:0,behavior:'smooth'});});});
   }
   function openCatalog(cat){
     var c=document.getElementById('catalog');if(!c)return;
     curFilter=(typeof cat==='string'&&cat)?cat:'Todos';buildChips();document.getElementById('catalogSearch').value='';renderCatalog(curFilter);
-    c.hidden=false;c.setAttribute('aria-hidden','false');requestAnimationFrame(function(){c.classList.add('open');});
+    c.hidden=false;c.scrollTop=0;c.setAttribute('aria-hidden','false');requestAnimationFrame(function(){c.classList.add('open');});
     document.body.classList.add('noscroll');
   }
   function closeCatalog(){var c=document.getElementById('catalog');c.classList.remove('open');document.body.classList.remove('noscroll');setTimeout(function(){c.hidden=true;c.setAttribute('aria-hidden','true');},450);}
@@ -870,7 +871,7 @@ body.noscroll{overflow:hidden}
     document.getElementById('pmCat').textContent=p.categoria||'';
     document.getElementById('pmName').textContent=p.nome||'';
     var priceEl=document.getElementById('pmPrice');
-    priceEl.innerHTML=(p.em_promocao&&p.preco_antigo?'<span class="pv-old">'+money(p.preco_antigo)+'</span>':'')+'<span class="pv">'+money(p.preco)+'</span>'+(p.em_promocao?'<span class="promo-badge">PROMOÇÃO</span>':'');
+    priceEl.innerHTML=(p.em_promocao&&p.preco_antigo?'<span class="pv-old">'+money(p.preco_antigo)+'</span>':'')+'<div class="pv-row"><span class="pv">'+money(p.preco)+'</span>'+(p.em_promocao?'<span class="promo-badge">PROMOÇÃO</span>':'')+'</div>';
     var stock=document.getElementById('pmStock');
     if(p.estoque>0&&p.estoque<=5){stock.textContent='Últimas '+p.estoque+' unidades!';stock.style.display='';}
     else if(p.estoque>5){stock.textContent='Disponível em estoque';stock.style.display='';}
@@ -984,18 +985,18 @@ body.noscroll{overflow:hidden}
       function finish(){
         if(done)return;done=true;
         try{vid.pause();}catch(e){}
-        hero.classList.add('frozen');                              // imagen fija (misma pose) por encima del video
-        setTimeout(function(){hero.classList.add('reveal');},280); // el texto aparece SOLO al terminar el video
+        try{vid.style.display='none';}catch(e){}                    // iOS: opacity no basta; hay que sacar el video del render
+        hero.classList.add('frozen');                              // imagen fija (misma pose) queda visible
+        setTimeout(function(){hero.classList.add('reveal');},120); // aparecen texto y botones
       }
-      // el video corre completo; recién al terminar mostramos imagen + texto
-      vid.addEventListener('ended',finish);
-      vid.addEventListener('error',function(){hero.classList.remove('intro');hero.classList.add('reveal');});
-      // 1) al acercarse al final (quando a duração é conhecida)
-      vid.addEventListener('timeupdate',function(){if(vid.duration&&isFinite(vid.duration)&&vid.currentTime>=vid.duration-0.12)finish();});
-      // 2) TRIGGER FIÁVEL (iOS 1º load deixa duration=Infinity): conta o tempo desde que o vídeo começa
       var VIDLEN=5.2; // segundos aprox. do vídeo do hero — ajustar se trocar o vídeo
-      vid.addEventListener('playing',function(){var d=(vid.duration&&isFinite(vid.duration)&&vid.duration>1)?vid.duration:VIDLEN;setTimeout(finish,d*1000);},{once:true});
-      // 3) respaldo duro caso o vídeo nunca reproduza
+      vid.addEventListener('error',function(){hero.classList.remove('intro');hero.classList.add('reveal');});
+      vid.addEventListener('ended',finish);
+      // principal: por currentTime (avanza en iOS aunque duration sea Infinity)
+      vid.addEventListener('timeupdate',function(){if(vid.currentTime>=VIDLEN-0.3)finish();});
+      // por tiempo desde que arranca (por si timeupdate no dispara)
+      vid.addEventListener('playing',function(){setTimeout(finish,VIDLEN*1000);},{once:true});
+      // respaldo duro final
       setTimeout(finish,7000);
       try{vid.currentTime=0;}catch(e){}
       var p=vid.play&&vid.play();
