@@ -134,7 +134,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.02;letter-spac
 @keyframes trustScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* Categories */
-.cats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cats .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
 .cat{position:relative;border:1px solid var(--line);border-radius:var(--r);padding:26px 20px;background:var(--white);transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s;overflow:hidden;cursor:pointer;display:block}
 .cat::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--orange);transition:width .4s var(--ease)}
 .cat:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(11,11,11,.10);border-color:transparent}
@@ -553,7 +553,15 @@ body.noscroll{overflow:hidden}
         <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="1.5"/><path d="M12 2v20M9 10v2M15 10v2"/></svg></div>
         <b>Guarda-roupas</b>
         <span>Ver produtos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a><a class="cat reveal rd-4" href="#produtos" data-cat="Fogões">
+      </a><a class="cat reveal rd-4" href="#produtos" data-cat="Cômodas">
+        <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M4 9h16M4 15h16M10 6h4M10 12h4M10 18h4"/></svg></div>
+        <b>Cômodas</b>
+        <span>Ver produtos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a><a class="cat reveal rd-1" href="#produtos" data-cat="Cozinha">
+        <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="7" rx="1"/><rect x="3" y="12" width="18" height="9" rx="1"/><path d="M12 4.5v4M12 13.5v6M8 6.2h.01M8 15.2h.01"/></svg></div>
+        <b>Cozinha</b>
+        <span>Ver produtos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a><a class="cat reveal rd-2" href="#produtos" data-cat="Fogões">
         <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M4 12h16M8 4c0 1-1 1-1 2M12 3c0 1-1 1-1 2M16 4c0 1-1 1-1 2M8 17h.01"/></svg></div>
         <b>Fogões</b>
         <span>Ver produtos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -982,12 +990,13 @@ body.noscroll{overflow:hidden}
       // el video corre completo; recién al terminar mostramos imagen + texto
       vid.addEventListener('ended',finish);
       vid.addEventListener('error',function(){hero.classList.remove('intro');hero.classList.add('reveal');});
-      // dispara al acercarse al final aunque 'ended' falhe (acontece no 1º load / iOS)
+      // 1) al acercarse al final (quando a duração é conhecida)
       vid.addEventListener('timeupdate',function(){if(vid.duration&&isFinite(vid.duration)&&vid.currentTime>=vid.duration-0.12)finish();});
-      // respaldos duros: nunca fica em branco
-      function scheduleBackup(){if(vid.duration&&isFinite(vid.duration))setTimeout(finish,(vid.duration+0.25)*1000);}
-      if(vid.readyState>=1)scheduleBackup();else vid.addEventListener('loadedmetadata',scheduleBackup);
-      setTimeout(finish,6500); // respaldo duro definitivo
+      // 2) TRIGGER FIÁVEL (iOS 1º load deixa duration=Infinity): conta o tempo desde que o vídeo começa
+      var VIDLEN=5.2; // segundos aprox. do vídeo do hero — ajustar se trocar o vídeo
+      vid.addEventListener('playing',function(){var d=(vid.duration&&isFinite(vid.duration)&&vid.duration>1)?vid.duration:VIDLEN;setTimeout(finish,d*1000);},{once:true});
+      // 3) respaldo duro caso o vídeo nunca reproduza
+      setTimeout(finish,7000);
       try{vid.currentTime=0;}catch(e){}
       var p=vid.play&&vid.play();
       if(p&&p.catch)p.catch(function(){finish();}); // autoplay bloqueado -> imagen fija + texto
