@@ -1,0 +1,12 @@
+COMO ADICIONAR SUAS FOTOS E LOGO
+================================
+Coloque os arquivos nesta pasta (assets/img/) com EXATAMENTE estes nomes:
+
+- logo.jpeg           -> logo da OXÊ (JÁ INCLUÍDO — aparece no topo e no rodapé)
+- hero.jpg            -> foto de ambiente do topo do site
+- produto-1.jpg       -> foto do 1º produto
+- produto-2.jpg       -> foto do 2º produto
+- ... até produto-10.jpg
+
+Dica: use imagens no formato "retrato" (mais altas que largas), por exemplo 800x1000px.
+Se um arquivo não existir, o site mostra um espaço reservado elegante — nada quebra.

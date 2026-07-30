@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>OXÊ · Painel Admin</title>
+<style>
+:root{--orange:#F66A0A;--orange-d:#D95A08;--black:#0B0B0B;--line:#e3e3e3;--gray:#6B6B6B;--bg:#f4f5f7;--ok:#1d9e75;--danger:#c0392b}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{background:var(--bg);color:#1a1a1a;line-height:1.5}
+img{max-width:100%;display:block}
+input,select,textarea,button{font-family:inherit;font-size:1rem}
+a{color:var(--orange-d)}
+.hidden{display:none!important}
+.btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;border:none;border-radius:10px;padding:12px 18px;font-weight:600;cursor:pointer;transition:.2s;background:var(--orange);color:#fff}
+.btn:hover{background:var(--orange-d)}
+.btn.sec{background:#fff;color:#1a1a1a;border:1.5px solid var(--line)}
+.btn.sec:hover{background:#f0f0f0}
+.btn.danger{background:#fff;color:var(--danger);border:1.5px solid #f0c6c1}
+.btn.danger:hover{background:#fdeceb}
+.btn.sm{padding:8px 12px;font-size:.85rem;border-radius:8px}
+label{display:block;font-weight:600;font-size:.86rem;margin:0 0 5px;color:#333}
+input[type=text],input[type=number],input[type=email],input[type=password],select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--orange)}
+textarea{min-height:90px;resize:vertical}
+
+/* Login */
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--black)}
+.login-card{background:#fff;border-radius:18px;padding:34px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.login-card .logo{width:70px;height:70px;border-radius:50%;background:var(--black);display:grid;place-items:center;margin:0 auto 16px;overflow:hidden}
+.login-card .logo img{width:100%;height:100%;object-fit:cover}
+.login-card h1{text-align:center;font-size:1.3rem;margin-bottom:4px}
+.login-card p{text-align:center;color:var(--gray);font-size:.9rem;margin-bottom:22px}
+.login-card .field{margin-bottom:14px}
+.msg{font-size:.86rem;padding:10px 12px;border-radius:8px;margin-top:6px}
+.msg.err{background:#fdeceb;color:var(--danger)}
+.msg.ok{background:#e6f6ef;color:var(--ok)}
+
+/* App */
+.topbar{background:var(--black);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.topbar .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+.topbar .brand span{color:var(--orange)}
+.topbar .brand img{width:38px;height:38px;border-radius:50%;object-fit:cover}
+.wrap{max-width:1000px;margin:0 auto;padding:22px 18px 60px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:22px}
+.card h2{font-size:1.15rem;margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+.field{margin-bottom:14px}
+.switch-row{display:flex;align-items:center;gap:10px;margin:6px 0 14px;background:#faf7f2;border:1.5px solid #f0e2cf;border-radius:10px;padding:12px}
+.switch-row input{width:20px;height:20px;accent-color:var(--orange)}
+.promo-fields{border-left:3px solid var(--orange);padding-left:14px;margin-bottom:14px}
+
+/* Imagens */
+.imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;margin-top:8px}
+.imgcell{position:relative;aspect-ratio:1;border:1.5px dashed var(--line);border-radius:10px;overflow:hidden;background:#fafafa;display:grid;place-items:center}
+.imgcell img{width:100%;height:100%;object-fit:cover}
+.imgcell .rm{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;border:none;cursor:pointer;font-size:14px;line-height:1}
+.imgcell.add{cursor:pointer;color:var(--gray);font-size:.78rem;text-align:center;flex-direction:column;gap:4px;padding:6px}
+.imgcell.add:hover{border-color:var(--orange);color:var(--orange)}
+.imgcell.add .plus{font-size:26px;line-height:1}
+.hint{font-size:.8rem;color:var(--gray);margin-top:6px}
+
+/* Lista */
+.plist{display:flex;flex-direction:column;gap:12px}
+.prow{display:flex;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.prow .th{width:64px;height:64px;border-radius:10px;object-fit:cover;background:#f0f0f0;flex:none}
+.prow .info{flex:1;min-width:0}
+.prow .info b{display:block;font-size:1rem}
+.prow .info small{color:var(--gray)}
+.prow .price{font-weight:700;color:var(--orange-d)}
+.prow .old{color:var(--gray);text-decoration:line-through;font-weight:400;font-size:.85rem;margin-right:6px}
+.badge{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:20px;background:var(--orange);color:#fff;margin-left:6px}
+.badge.off{background:#eee;color:#666}
+.prow .acts{display:flex;gap:8px;flex:none}
+@media(max-width:640px){.prow{flex-wrap:wrap}.prow .acts{width:100%}}
+.center{text-align:center;color:var(--gray);padding:30px}
+.loader{display:inline-block;width:20px;height:20px;border:3px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-4px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginView">
+  <div class="login-card">
+    <div class="logo"><img src="logo.jpeg" alt="OXÊ" onerror="this.parentNode.textContent='O';this.parentNode.style.color='#F66A0A';this.parentNode.style.fontWeight='700';this.parentNode.style.fontSize='1.6rem'"></div>
+    <h1>Painel OXÊ</h1>
+    <p>Acesso restrito · administração</p>
+    <form id="loginForm">
+      <div class="field"><label>E-mail</label><input type="email" id="email" required autocomplete="username"></div>
+      <div class="field"><label>Senha</label><input type="password" id="password" required autocomplete="current-password"></div>
+      <button class="btn" type="submit" style="width:100%" id="loginBtn">Entrar</button>
+      <div id="loginMsg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appView" class="hidden">
+  <div class="topbar">
+    <div class="brand"><img src="logo.jpeg" alt="" onerror="this.style.display='none'"> OX<span>Ê</span> · Admin</div>
+    <button class="btn sec sm" id="logoutBtn">Sair</button>
+  </div>
+  <div class="wrap">
+
+    <div class="card">
+      <h2 id="formTitle">Adicionar produto</h2>
+      <form id="prodForm">
+        <input type="hidden" id="prodId">
+        <div class="grid2">
+          <div class="field"><label>Nome do produto *</label><input type="text" id="nome" required placeholder="Ex.: Sofá 3 lugares retrátil"></div>
+          <div class="field"><label>Categoria *</label>
+            <input type="text" id="categoria" list="catList" required placeholder="Ex.: Sofás">
+            <datalist id="catList">
+              <option value="Sofás"><option value="Camas & Colchões"><option value="Guarda-roupas"><option value="Mesas & Cadeiras"><option value="Geladeiras"><option value="Fogões"><option value="TVs"><option value="Máquinas de Lavar"><option value="Racks & Painéis"><option value="Outros">
+            </datalist>
+          </div>
+        </div>
+
+        <div class="switch-row">
+          <input type="checkbox" id="emPromocao">
+          <label for="emPromocao" style="margin:0">Este produto está em promoção</label>
+        </div>
+
+        <div id="normalPrice" class="field">
+          <label>Preço (R$) *</label><input type="number" id="preco" step="0.01" min="0" placeholder="Ex.: 599.90">
+        </div>
+
+        <div id="promoPrice" class="promo-fields hidden">
+          <div class="grid2">
+            <div class="field"><label>Valor anterior (R$) — será riscado</label><input type="number" id="precoAntigo" step="0.01" min="0" placeholder="Ex.: 799.90"></div>
+            <div class="field"><label>Valor promocional (R$) — em destaque</label><input type="number" id="precoPromo" step="0.01" min="0" placeholder="Ex.: 599.90"></div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="field"><label>Estoque disponível</label><input type="number" id="estoque" min="0" value="0"></div>
+          <div class="field" style="display:flex;align-items:flex-end">
+            <label style="display:flex;align-items:center;gap:8px;font-weight:600;cursor:pointer;margin:0">
+              <input type="checkbox" id="destaque" style="width:20px;height:20px;accent-color:var(--orange)"> Mostrar em destaque na página inicial
+            </label>
+          </div>
+        </div>
+
+        <div class="field"><label>Descrição</label><textarea id="descricao" placeholder="Descreva o produto: medidas, material, cores, diferenciais..."></textarea></div>
+
+        <div class="field">
+          <label>Imagens (até 6) — a 1ª é a principal</label>
+          <div class="imgs" id="imgGrid"></div>
+          <input type="file" id="fileInput" accept="image/*" multiple class="hidden">
+          <div class="hint">Formatos: JPG/PNG. A primeira imagem aparece na vitrine. Você pode arrastar depois no futuro.</div>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+          <button class="btn" type="submit" id="saveBtn">Salvar produto</button>
+          <button class="btn sec hidden" type="button" id="cancelEdit">Cancelar edição</button>
+        </div>
+        <div id="formMsg"></div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Produtos cadastrados (<span id="count">0</span>)</h2>
+      <div class="plist" id="plist"><div class="center">Carregando...</div></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+"use strict";
+var SUPA_URL='https://mgwcjfzzchuidfqhskvu.supabase.co';
+var SUPA_KEY='sb_publishable_7tQl6hgKwB74R9SsxDsjmQ_VlnsfER4';
+var BUCKET='produtos';
+var sb=window.supabase.createClient(SUPA_URL,SUPA_KEY);
+
+var $=function(id){return document.getElementById(id);};
+var images=[]; // {url} or {file, preview}
+
+function money(v){return 'R$ '+Number(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+// ---------- AUTH ----------
+$('loginForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var btn=$('loginBtn');btn.disabled=true;btn.innerHTML='<span class="loader"></span>';
+  $('loginMsg').innerHTML='';
+  var r=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+  btn.disabled=false;btn.textContent='Entrar';
+  if(r.error){$('loginMsg').innerHTML='<div class="msg err">'+(r.error.message||'Erro ao entrar')+'</div>';return;}
+  showApp();
+});
+$('logoutBtn').addEventListener('click',async function(){await sb.auth.signOut();location.reload();});
+
+async function init(){
+  var s=await sb.auth.getSession();
+  if(s.data&&s.data.session)showApp();
+}
+function showApp(){$('loginView').classList.add('hidden');$('appView').classList.remove('hidden');loadProducts();}
+
+// ---------- PROMO TOGGLE ----------
+$('emPromocao').addEventListener('change',function(){
+  var on=this.checked;
+  $('promoPrice').classList.toggle('hidden',!on);
+  $('normalPrice').classList.toggle('hidden',on);
+});
+
+// ---------- IMAGES ----------
+function renderImgs(){
+  var g=$('imgGrid');g.innerHTML='';
+  images.forEach(function(im,i){
+    var src=im.url||im.preview;
+    var d=document.createElement('div');d.className='imgcell';
+    d.innerHTML='<img src="'+src+'"><button type="button" class="rm" data-i="'+i+'">×</button>';
+    g.appendChild(d);
+  });
+  if(images.length<6){
+    var a=document.createElement('div');a.className='imgcell add';
+    a.innerHTML='<span class="plus">+</span><span>Adicionar</span>';
+    a.addEventListener('click',function(){$('fileInput').click();});
+    g.appendChild(a);
+  }
+}
+$('imgGrid').addEventListener('click',function(e){
+  var b=e.target.closest('.rm');if(!b)return;
+  images.splice(+b.dataset.i,1);renderImgs();
+});
+$('fileInput').addEventListener('change',function(e){
+  var files=Array.prototype.slice.call(e.target.files);
+  files.forEach(function(f){
+    if(images.length>=6)return;
+    images.push({file:f,preview:URL.createObjectURL(f)});
+  });
+  renderImgs();e.target.value='';
+});
+
+async function uploadPending(){
+  var urls=[];
+  for(var i=0;i<images.length;i++){
+    var im=images[i];
+    if(im.url){urls.push(im.url);continue;}
+    var ext=(im.file.name.split('.').pop()||'jpg').toLowerCase();
+    var path='prod_'+Date.now()+'_'+i+'_'+Math.random().toString(36).slice(2,7)+'.'+ext;
+    var up=await sb.storage.from(BUCKET).upload(path,im.file,{cacheControl:'3600',upsert:false});
+    if(up.error)throw up.error;
+    var pub=sb.storage.from(BUCKET).getPublicUrl(path);
+    urls.push(pub.data.publicUrl);
+  }
+  return urls;
+}
+
+// ---------- SAVE ----------
+$('prodForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var btn=$('saveBtn');btn.disabled=true;var old=btn.textContent;btn.innerHTML='<span class="loader"></span> Salvando...';
+  $('formMsg').innerHTML='';
+  try{
+    var promo=$('emPromocao').checked;
+    var preco=promo?parseFloat($('precoPromo').value):parseFloat($('preco').value);
+    var precoAntigo=promo?parseFloat($('precoAntigo').value):null;
+    if(!$('nome').value.trim()||!$('categoria').value.trim())throw new Error('Preencha nome e categoria.');
+    if(isNaN(preco))throw new Error('Preencha o preço.');
+    var urls=await uploadPending();
+    var data={
+      nome:$('nome').value.trim(),categoria:$('categoria').value.trim(),
+      descricao:$('descricao').value.trim(),preco:preco,
+      preco_antigo:promo?precoAntigo:null,em_promocao:promo,
+      estoque:parseInt($('estoque').value)||0,imagens:urls,
+      destaque:$('destaque').checked,ativo:true
+    };
+    var id=$('prodId').value;
+    var r=id?await sb.from('produtos').update(data).eq('id',id):await sb.from('produtos').insert(data);
+    if(r.error)throw r.error;
+    $('formMsg').innerHTML='<div class="msg ok">Produto salvo com sucesso!</div>';
+    resetForm();loadProducts();
+    setTimeout(function(){$('formMsg').innerHTML='';},2500);
+  }catch(err){
+    $('formMsg').innerHTML='<div class="msg err">Erro: '+(err.message||err)+'</div>';
+  }
+  btn.disabled=false;btn.textContent=old;
+});
+
+function resetForm(){
+  $('prodForm').reset();$('prodId').value='';images=[];renderImgs();
+  $('emPromocao').checked=false;$('promoPrice').classList.add('hidden');$('normalPrice').classList.remove('hidden');
+  $('formTitle').textContent='Adicionar produto';$('cancelEdit').classList.add('hidden');$('saveBtn').textContent='Salvar produto';
+}
+$('cancelEdit').addEventListener('click',resetForm);
+
+// ---------- LIST ----------
+async function loadProducts(){
+  var r=await sb.from('produtos').select('*').order('criado_em',{ascending:false});
+  var el=$('plist');
+  if(r.error){el.innerHTML='<div class="center" style="color:#c0392b">Erro ao carregar: '+r.error.message+'</div>';return;}
+  var list=r.data||[];$('count').textContent=list.length;
+  if(!list.length){el.innerHTML='<div class="center">Nenhum produto ainda. Adicione o primeiro acima 👆</div>';return;}
+  el.innerHTML='';
+  list.forEach(function(p){
+    var img=(p.imagens&&p.imagens[0])||'';
+    var price=p.em_promocao&&p.preco_antigo?('<span class="old">'+money(p.preco_antigo)+'</span><span class="price">'+money(p.preco)+'</span>'):'<span class="price">'+money(p.preco)+'</span>';
+    var row=document.createElement('div');row.className='prow';
+    row.innerHTML=
+      (img?'<img class="th" src="'+img+'">':'<div class="th"></div>')+
+      '<div class="info"><b>'+esc(p.nome)+(p.em_promocao?'<span class="badge">PROMOÇÃO</span>':'')+(p.destaque?'<span class="badge off">Destaque</span>':'')+'</b>'+
+      '<small>'+esc(p.categoria||'')+' · estoque: '+(p.estoque||0)+'</small><div>'+price+'</div></div>'+
+      '<div class="acts"><button class="btn sec sm" data-edit="'+p.id+'">Editar</button><button class="btn danger sm" data-del="'+p.id+'">Excluir</button></div>';
+    el.appendChild(row);
+  });
+  el.querySelectorAll('[data-edit]').forEach(function(b){b.addEventListener('click',function(){editProduct(b.dataset.edit,list);});});
+  el.querySelectorAll('[data-del]').forEach(function(b){b.addEventListener('click',function(){delProduct(b.dataset.del);});});
+}
+function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+function editProduct(id,list){
+  var p=list.find(function(x){return x.id===id;});if(!p)return;
+  $('prodId').value=p.id;$('nome').value=p.nome||'';$('categoria').value=p.categoria||'';
+  $('descricao').value=p.descricao||'';$('estoque').value=p.estoque||0;$('destaque').checked=!!p.destaque;
+  if(p.em_promocao&&p.preco_antigo){$('emPromocao').checked=true;$('promoPrice').classList.remove('hidden');$('normalPrice').classList.add('hidden');$('precoAntigo').value=p.preco_antigo;$('precoPromo').value=p.preco;}
+  else{$('emPromocao').checked=false;$('promoPrice').classList.add('hidden');$('normalPrice').classList.remove('hidden');$('preco').value=p.preco;}
+  images=(p.imagens||[]).map(function(u){return{url:u};});renderImgs();
+  $('formTitle').textContent='Editar produto';$('cancelEdit').classList.remove('hidden');$('saveBtn').textContent='Atualizar produto';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+async function delProduct(id){
+  if(!confirm('Excluir este produto? Esta ação não pode ser desfeita.'))return;
+  var r=await sb.from('produtos').delete().eq('id',id);
+  if(r.error){alert('Erro ao excluir: '+r.error.message);return;}
+  loadProducts();
+}
+
+renderImgs();init();
+})();
+</script>
+</body>
+</html>
