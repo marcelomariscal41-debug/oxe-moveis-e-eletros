@@ -992,7 +992,7 @@ body.noscroll{overflow:hidden}
         setTimeout(function(){hero.classList.add('reveal');},120); // aparecen texto y botones (la imagen ya está detrás)
       }
       var VIDLEN=5.2; // segundos aprox. do vídeo do hero — ajustar se trocar o vídeo
-      vid.addEventListener('error',function(){hero.classList.remove('intro');hero.classList.add('reveal');});
+      vid.addEventListener('error',finish); // ante error del video, mostramos la imagen fija + texto (NO borramos la escena)
       vid.addEventListener('ended',finish);
       // principal: por currentTime (avanza en iOS aunque duration sea Infinity)
       vid.addEventListener('timeupdate',function(){if(vid.currentTime>=VIDLEN-0.3)finish();});
