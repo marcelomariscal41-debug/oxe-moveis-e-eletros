@@ -183,12 +183,12 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.02;letter-spac
 /* Catálogo completo */
 .catalog{position:fixed;inset:0;z-index:200;background:var(--gray-light);overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateY(100%);transition:transform .45s var(--ease)}
 .catalog.open{transform:none}
-.catalog-head{background:var(--black);color:#fff;padding:20px 22px 22px}
+.catalog-head{background:var(--black);color:#fff;padding:72px 22px 22px}
 .catalog-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto}
 .catalog-title .kicker{color:var(--gold)}
 .catalog-title h2{font-size:clamp(1.5rem,4vw,2.2rem);margin-top:4px}
 .catalog-sub{color:rgba(255,255,255,.72);font-size:.95rem;margin-top:8px;max-width:60ch;line-height:1.5}
-.catalog-close{position:fixed;top:14px;right:14px;z-index:20;width:46px;height:46px;flex:none;border-radius:50%;border:none;background:var(--orange);color:#fff;cursor:pointer;display:grid;place-items:center;transform:rotate(180deg);box-shadow:0 6px 20px rgba(0,0,0,.28)}
+.catalog-close{position:fixed;top:14px;left:max(14px,calc(50% - 586px));right:auto;z-index:20;width:46px;height:46px;flex:none;border-radius:50%;border:none;background:var(--orange);color:#fff;cursor:pointer;display:grid;place-items:center;transform:rotate(180deg);box-shadow:0 6px 20px rgba(0,0,0,.28)}
 .catalog-close svg{width:22px;height:22px}
 .catalog-close:hover{background:var(--orange-dark)}
 .catalog-search{max-width:1200px;margin:16px auto 0;display:flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:0 14px}
@@ -837,13 +837,55 @@ body.noscroll{overflow:hidden}
     var more=document.getElementById('prodsMore');
     if(more)more.hidden=ALLPRODS.length<=8;
   }
+  // ---- Busca inteligente: sem acento, com sinônimos e por ambiente ----
+  function normTxt(s){return (s==null?'':String(s)).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();}
+  var SEARCH_STOP={'moveis':1,'movel':1,'de':1,'da':1,'do':1,'dos':1,'das':1,'para':1,'pra':1,'e':1,'a':1,'o':1,'os':1,'as':1,'em':1,'com':1,'meu':1,'minha':1,'um':1,'uma':1,'quero':1,'preciso':1};
+  var SEARCH_SYN={
+    'sala':['sofa','poltrona','rack','painel','estante','mesa de centro','sala','tv','home'],
+    'estar':['sofa','poltrona','rack','painel','sala'],
+    'living':['sofa','poltrona','rack','painel','sala'],
+    'quarto':['cama','colchao','guarda roupa','guardaroupa','roupeiro','comoda','gaveteiro','criado','penteadeira','box','quarto','dormitorio'],
+    'dormitorio':['cama','colchao','guarda roupa','comoda','quarto'],
+    'cozinha':['armario','cozinha','fogao','geladeira','balcao','paneleiro','mesa','cadeira','copa'],
+    'copa':['mesa','cadeira','armario','cozinha'],
+    'sofa':['sofa','poltrona'],
+    'poltrona':['poltrona','sofa'],
+    'cama':['cama','colchao','box'],
+    'colchao':['colchao','cama','box'],
+    'geladeira':['geladeira','refrigerador','frigobar'],
+    'refrigerador':['geladeira','refrigerador'],
+    'fogao':['fogao','cooktop'],
+    'tv':['tv','televisao','painel','rack','home'],
+    'painel':['painel','rack','tv'],
+    'rack':['rack','painel','tv'],
+    'guarda':['guarda roupa','roupeiro'],
+    'roupa':['guarda roupa','roupeiro'],
+    'roupeiro':['guarda roupa','roupeiro'],
+    'guardaroupa':['guarda roupa','roupeiro'],
+    'comoda':['comoda','gaveteiro'],
+    'gaveteiro':['gaveteiro','comoda'],
+    'armario':['armario','cozinha'],
+    'mesa':['mesa','jantar','cadeira'],
+    'cadeira':['cadeira','mesa'],
+    'jantar':['mesa','cadeira']
+  };
+  function searchText(p){if(p._search==null)p._search=normTxt((p.nome||'')+' '+(p.categoria||'')+' '+(p.descricao||''));return p._search;}
+  function smartMatch(p,query){
+    var q=normTxt(query);if(!q)return true;
+    var toks=q.split(' ').filter(function(t){return t&&!SEARCH_STOP[t];});
+    if(!toks.length)return true;
+    var text=searchText(p);
+    return toks.every(function(tok){
+      var terms=(SEARCH_SYN[tok]?SEARCH_SYN[tok].slice():[]);terms.push(tok);
+      return terms.some(function(term){return text.indexOf(term)>=0;});
+    });
+  }
   function renderCatalog(filter){
     var grid=document.getElementById('catalogGrid');var st=document.getElementById('catalogState');
-    var q=(document.getElementById('catalogSearch').value||'').toLowerCase().trim();
+    var q=(document.getElementById('catalogSearch').value||'').trim();
     var list=ALLPRODS.filter(function(p){
       var okCat=!filter||filter==='Todos'||p.categoria===filter;
-      var okQ=!q||(p.nome+' '+(p.categoria||'')).toLowerCase().indexOf(q)>=0;
-      return okCat&&okQ;
+      return okCat&&smartMatch(p,q);
     });
     if(!list.length){grid.innerHTML='';st.hidden=false;st.textContent='Nenhum produto encontrado.';return;}
     st.hidden=true;grid.innerHTML=list.map(cardHTML).join('');bindCards(grid);
