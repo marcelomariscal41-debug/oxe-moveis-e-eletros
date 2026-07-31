@@ -884,7 +884,7 @@ body.noscroll{overflow:hidden}
     var grid=document.getElementById('catalogGrid');var st=document.getElementById('catalogState');
     var q=(document.getElementById('catalogSearch').value||'').trim();
     var list=ALLPRODS.filter(function(p){
-      var okCat=!filter||filter==='Todos'||p.categoria===filter;
+      var okCat=!filter||filter==='Todos'||normTxt(p.categoria)===normTxt(filter);
       return okCat&&smartMatch(p,q);
     });
     if(!list.length){grid.innerHTML='';st.hidden=false;st.textContent='Nenhum produto encontrado.';return;}
@@ -893,8 +893,9 @@ body.noscroll{overflow:hidden}
   var curFilter='Todos';
   function buildChips(){
     var chips=document.getElementById('catChips');
-    var cats=['Todos'];ALLPRODS.forEach(function(p){if(p.categoria&&cats.indexOf(p.categoria)<0)cats.push(p.categoria);});
-    chips.innerHTML=cats.map(function(c){return '<button class="chip'+(c===curFilter?' active':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('');
+    var cats=['Todos'];var seen={};ALLPRODS.forEach(function(p){if(p.categoria){var k=normTxt(p.categoria);if(!seen[k]){seen[k]=1;cats.push(p.categoria);}}});
+    var cf=normTxt(curFilter);
+    chips.innerHTML=cats.map(function(c){return '<button class="chip'+(normTxt(c)===cf?' active':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('');
     chips.querySelectorAll('.chip').forEach(function(b){b.addEventListener('click',function(){curFilter=b.dataset.cat;chips.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});b.classList.add('active');renderCatalog(curFilter);var cat=document.getElementById('catalog');if(cat)cat.scrollTo({top:0,behavior:'smooth'});});});
   }
   function openCatalog(cat){
