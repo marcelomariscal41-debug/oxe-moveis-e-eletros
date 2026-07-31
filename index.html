@@ -398,6 +398,7 @@ body.noscroll{overflow:hidden}
   .hero.intro .wrap{position:relative;z-index:3;display:flex;flex-direction:column;padding:84px 20px 26px;min-height:100svh}
   .hero.intro .hero-figure{display:none}
   .hero.intro .hero-badge{display:none}
+  .hero .hero-copy{opacity:0;transform:translateY(18px)}
   .hero.intro .hero-copy{opacity:0;transform:translateY(18px);transition:opacity 1s var(--ease),transform 1s var(--ease);max-width:100%;display:flex;flex-direction:column;flex:1}
   .hero.intro.reveal .hero-copy{opacity:1;transform:none}
   .hero.intro .hero-copy h1{font-size:clamp(1.85rem,8vw,2.5rem);margin-bottom:12px;text-shadow:0 2px 14px rgba(0,0,0,.7)}
@@ -979,6 +980,9 @@ body.noscroll{overflow:hidden}
       if(started||!mq.matches)return; // solo mobile — desktop intacto
       started=true;
       hero.classList.add('intro');
+      // forzar decodificar la imagen fija ya (aunque esté tapada por el video) para que al mostrarla no haya flash blanco
+      var fimg=hero.querySelector('.hero-freeze');
+      if(fimg&&fimg.decode){try{fimg.decode().catch(function(){});}catch(e){}}
       var done=false;
       function finish(){
         if(done)return;done=true;
@@ -986,7 +990,6 @@ body.noscroll{overflow:hidden}
         try{vid.style.display='none';}catch(e){}                    // iOS: opacity no basta; hay que sacar el video del render
         hero.classList.add('frozen');
         setTimeout(function(){hero.classList.add('reveal');},120); // aparecen texto y botones (la imagen ya está detrás)
-        setTimeout(function(){try{if(vid.parentNode)vid.parentNode.removeChild(vid);}catch(e){}},450); // libera a camada de vídeo do iOS
       }
       var VIDLEN=5.2; // segundos aprox. do vídeo do hero — ajustar se trocar o vídeo
       vid.addEventListener('error',function(){hero.classList.remove('intro');hero.classList.add('reveal');});
